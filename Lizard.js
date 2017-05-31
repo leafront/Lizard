@@ -1,5 +1,14 @@
-reated by leafrontye on 2017/5/3.
- */
+/**
+
+	Lizard
+
+	name leafront
+
+
+**/
+
+
+
 
 define([
 	'jquery'
@@ -217,9 +226,10 @@ define([
 
 				var value = pairs[i].substring(pos + 1); // Extract the value
 
-				value=decodeURIComponent(value); // Decode it, if needed
+				value = decodeURIComponent(value); // Decode it, if needed
 
 				args[argname] = value; // Store as a property
+
 			}
 			if (strParame == undefined) {
 
@@ -231,137 +241,42 @@ define([
 			}
 		},
 		queryStringify: function (obj) {
-
-				function toQueryPair(key, value) {
-			    if (typeof value == 'undefined') {
-			        return key;
-			    }
-		    	return key + '=' + encodeURIComponent(value === null ? '': String(value));
-				}
-				var ret = [];
-				for (var key in obj) {
-				    key = encodeURIComponent(key);
-				    var values = obj[key];
-				    if (values && values.constructor == Array) { //数组
-				        var queryValues = [];
-
-				        for (var i = 0,
-				        len = values.length,
-				        value; i < len; i++) {
-				            value = values[i];
-				            queryValues.push(toQueryPair(key, value));
-				        }
-				        ret = ret.concat(queryValues);
-
-				    } else { //字符串
-				        ret.push(toQueryPair(key, values));
-				    }
-				}
-				return ret.join('&');
-
-		},
-		getToken:function(){
-
-			var token =  Lizard.getCookie('token');
-
-			var expires= Lizard.getCookie('expires');
-
-			if (expires){
-
-				var date = new Date();
-
-				if (date.getTime() > expires){
-
-					token = this.updateToken().token;
-
-					return token;
-
-				}else{
-
-					return token;
-				}
-
-			} else{
-
-				token = this.updateToken().token;
-
-				return token;
-
+			function toQueryPair(key, value) {
+		    if (typeof value == 'undefined') {
+		        return key;
+		    }
+	    	return key + '=' + encodeURIComponent(value === null ? '': String(value));
 			}
-		},
-		updateToken: function() {
-			var api = this.url;
+			var ret = [];
 
-			var dataToken = {};
+			for (var key in obj) {
 
-			$.ajax({
-				type: 'GET',
-				dataType: 'json',
-				async:false,
-				url: api + '/token/index/3c27184d932ff29ca554c76733c32e86',
-				success:function(data){
+			    key = encodeURIComponent(key);
 
-					if (data && data.code == 0){
+			    var values = obj[key];
 
-						var value = data.value;
+			    if (values && values.constructor == Array) { //数组
 
-						Lizard.setCookie('expires',value.expires * 1000,1000 * 60 * 60 * 12 );
+			        var queryValues = [];
 
-						Lizard.setCookie('token',value.token,1000 * 60 * 60 * 12 );
+			        for (var i = 0,
+			        len = values.length,
 
-						dataToken.token = value.token;
+			        value; i < len; i++) {
 
-					} else{
+			            value = values[i];
 
-						Lizard.showToast(data.message);
+			            queryValues.push(toQueryPair(key, value));
+			        }
+			        ret = ret.concat(queryValues);
 
-						dataToken.token = null;
+			    } else { //字符串
 
-					}
-				},
-				error: function(){
+			        ret.push(toQueryPair(key, values));
+			    }
+			}
+			return ret.join('&');
 
-					Lizard.showToast('网络服务器错误');
-
-				}
-			})
-
-			return dataToken
-
-		},
-
-		ajax: function(obj) {
-
-			var url = this.url;
-
-			var token = Lizard.getToken();
-
-			var type = obj.type;
-
-		  url = url + obj.url;
-
-			var resData = obj.data;
-
-			$.ajax({
-				type:obj.type,
-				dataType: 'json',
-				url: url,
-				data:resData,
-				beforeSend: function(request) {
-
-					request.setRequestHeader("token", token);
-
-				},
-				success:function(data){
-
-					obj.success(data);
-
-				},
-				error: function(){
-
-					Lizard.showToast('网络服务器错误');
-				}
-			})
 		},
 		countTime:function(obj,className){
 			var time = 60;
@@ -531,9 +446,19 @@ define([
 
 				}
 			}
+		},
+		equalArray: function(a,b){
+
+			if (a.length != b.length) return false;
+
+			for (var i = 0; i < a.length; i++) {
+
+				if (a[i] !== b[i]) return false;
+
+			}
+			return true;
 		}
 	}
 	window.Lizard = Lizard;
 	return Lizard;
 })
-

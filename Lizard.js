@@ -17,10 +17,6 @@ define([
 ){
 	var Lizard = {
 
-		url:'http://192.168.0.21:8080',
-
-		// url:'http://192.168.0.100:81',
-
 		prompt: function (obj,determine,cancel){
 
 			var tips = obj.tips;

@@ -459,7 +459,7 @@ define([
 			return true;
 		},
 		toThousands: function(num){
-			
+
 		  var num = (num || 0).toString();
 
 			var result = '';
@@ -479,8 +479,6 @@ define([
 			}
 
 			return result;
-
-
 
     }
 	}

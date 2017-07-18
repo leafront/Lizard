@@ -81,13 +81,6 @@ define([
 
 			},2000)
 		},
-		checkNumber: function (theObj) {
-		  var reg = /^[0-9]+.?[0-9]*$/;
-		  if (reg.test(theObj)) {
-		    return true;
-		  }
-		  return false;
-		},
 		tips:function(obj){
 
 			var eleCont = obj.ele;
@@ -122,19 +115,6 @@ define([
 			},3000);
 
 		},
-		isMobile: function (text) {
-
-			var pattern = /^1[3-8]\d{9}$/;
-
-			return pattern.test(text);
-
-		},
-		isZipCode: function(text){
-
-			var pattern = /^[1-9][0-9]{5}$/;
-
-			return pattern.test(text);
-		},
 		isLogin: function  () {
 
 			var getTime = new Date().getTime();
@@ -165,42 +145,6 @@ define([
 
 				return true;
 			}
-		},
-		isEmail: function (text) {
-
-			var pattern = /^([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[-_.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,6}$/;
-
-			return pattern.test(text);
-		},
-		isPass: function(text){
-
-			var pattern = /((?=.*[a-z])(?=.*\d)|(?=[a-z])(?=.*[#@!~%^&*])|(?=.*\d)(?=.*[#@!~%^&*]))[a-z\d#@!~%^&*]{6,20}/i;
-
-			return pattern.test(text)
-
-		},
-		isName: function (text) {
-
-			var pattern = /^([\u4e00-\u9fa5]|[A-Za-z_])+$/;
-
-			if (pattern.test(text)) {
-
-				text = text.replace(/[\u4e00-\u9fa5]/g, '__');
-
-				return text.length <= 20;
-
-			} else {
-
-				return false;
-
-			}
-		},
-		isIdCard: function(text) {
-			//身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X。
-			var pattern = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
-
-			return pattern.test(text);
-
 		},
 		query: function(){
 
@@ -454,6 +398,7 @@ define([
 			}
 			return true;
 		},
+
 		toThousands: function(num){
 
 		  var num = (num || 0).toString();

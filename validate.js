@@ -1,7 +1,7 @@
 define([],function(){
 
   var validate = {
-    
+
     checkNumber: function (text) {
 
       var pattern = /^[0-9]+.?[0-9]*$/;
@@ -100,6 +100,29 @@ define([],function(){
         return false;
 
       }
+    },
+    isColor: function (text) {
+
+      var pattern = /^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/;
+
+      pattern.test(text);
+
+    },
+
+    isTime: function (text){
+
+      var pattern = /^([01][0-9]|[2][0-3]):[0-5][0-9]$/;
+
+      return pattern.test(text);
+
+    },
+
+    isDateTime: function(){
+
+      var pattern = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+
+      return pattern.test(text);
+      
     },
     isIdCard: function(text) {
       //身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，最后一位是校验位，可能为数字或字符X。
